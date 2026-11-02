@@ -1,0 +1,2 @@
+import{compare,sweep,randomWindows}from'./engine.js';
+self.onmessage=({data:{id,type,data,config,options}})=>{try{let last=0;const progress=p=>{if(p-last>.04||p===1){last=p;self.postMessage({id,progress:p});}};const result=type==='sweep'?sweep(data,config,progress,options?.varyPool):type==='random'?randomWindows(data,config,options?.count,options?.horizon,progress):compare(data,config);self.postMessage({id,result});}catch(error){self.postMessage({id,error:error.message});}};
